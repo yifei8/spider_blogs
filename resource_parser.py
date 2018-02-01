@@ -14,9 +14,8 @@ class ResParser(object):
         if url is None or content is None:
             return
         soup = BeautifulSoup(content, features="html.parser", from_encoding="utf-8")
-        # h3 class="blog-title odd-overhidden bottom-dis-8"
         data = self._get_data(url, soup)
-        return url,data
+        return data
 
     '''
 <li class="blog-unit">
@@ -33,13 +32,13 @@ class ResParser(object):
     def _get_data(self, root_url, soup):
         data = []
         subdata = {}
-        data["root_url"] = subdata
-        lis = soup.find('li', class_="blog-unit")
+        lis = soup.find_all('li', class_="blog-unit")
         for li in lis:
-            a = li.find('a', href=re.compile(r"://blog.csdn.net"))
+            subdata['sources_url'] = root_url
+            a = li.find('a')
             subdata['href'] = a['href']
             h3 = li.find('h3', class_="blog-title odd-overhidden bottom-dis-8")
-            subdata['title'] = h3.get_text()
+            subdata['title'] = h3.get_text().encode('utf-8')
             data.append(subdata)
 
         return data
