@@ -2,6 +2,26 @@
 # -*- coding: UTF-8 -*-
 
 """
+
+SET NAMES utf8;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+--  Table structure for `articleitem`
+-- ----------------------------
+DROP TABLE IF EXISTS `articleitem`;
+CREATE TABLE `articleitem` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` tinytext,
+  `des` text,
+  `url` text NOT NULL,
+  `author_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `author_id` (`author_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
  Description [数据库blogger表 增/删/改/查 操作]
  Created by yifei on 2018/2/6.
 """
