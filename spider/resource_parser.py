@@ -15,7 +15,8 @@ class ResParser(object):
             return
         soup = BeautifulSoup(content, features="html.parser", from_encoding="utf-8")
         data = self._get_data(url, soup)
-        return data
+        new_urls = self._get_new_urls(url, soup)
+        return new_urls, data
 
     '''
 <li class="blog-unit">
@@ -39,6 +40,21 @@ class ResParser(object):
             subdata['href'] = a['href']
             h3 = li.find('h3', class_="blog-title odd-overhidden bottom-dis-8")
             subdata['title'] = h3.get_text().encode('utf-8')
+            p = li.find('p', class_="text bottom-dis-8")
+            subdata['overview'] = p.get_text().encode('utf-8')
             data.append(subdata)
 
         return data
+
+    def _get_new_urls(self, root_url, soup):
+        new_urls = set()
+        # <a href="http://blog.csdn.net/mwq384807683/article/list/2" class="page-link" data-ci-pagination-page="2">2</a>
+        lis = soup.find_all('a', class_="page-link")
+        for li in lis:
+            try:
+                new_url = li['href']
+                new_urls.add(new_url)
+            except:
+                pass
+
+        return new_urls
