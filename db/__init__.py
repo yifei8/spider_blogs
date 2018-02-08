@@ -6,7 +6,7 @@
  Created by yifei on 2018/2/5.
 """
 
-import connect_db
+import init_db
 import blogger_dao
 import articleitem_dao
 
@@ -17,9 +17,9 @@ if __name__ == "__main__":
     password = 'root'
     db = 'pythontest'
 
-    connectdb = connect_db.ConnectDB(host, user, password, db)
+    connectdb = init_db.ConnectDB(host, user, password, db)
     # todo 创建数据表
-    # connectdb.create_table()
+    connectdb.create_table()
 
     bloggerDao = blogger_dao.BloggerDao(connectdb)
     # todo 插入单条数据到blogger表中

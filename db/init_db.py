@@ -31,10 +31,23 @@ class ConnectDB:
     def create_table(self):
         db, cursor = self.getCursor()
         try:
+            # todo 创建 user 表
+            cursor.execute('DROP TABLE IF EXISTS user')
+            create_user_table_sql = '''
+                                       CREATE TABLE IF NOT EXISTS `user` (
+                                         `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+                                         `name` varchar(50) NOT NULL,
+                                         `pwd` varchar(20) NOT NULL,
+                                         PRIMARY KEY (`id`)
+                                       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+                                       '''
+            # 执行sql语句
+            print(create_user_table_sql)
+            print('create user table success ', cursor.execute(create_user_table_sql))
+
             # todo 创建 blogger 表
-            cursor.execute('DROP TABLE IF EXISTS blogger1')
+            cursor.execute('DROP TABLE IF EXISTS blogger')
             create_blogger_table_sql = '''
-                           
                            CREATE TABLE IF NOT EXISTS `blogger` (
                              `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
                              `name` varchar(20) DEFAULT NULL,
@@ -44,7 +57,7 @@ class ConnectDB:
                            ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
                            '''
             print(create_blogger_table_sql)
-            print('create articleitem success ', cursor.execute(create_blogger_table_sql))
+            print('create articleitem table success ', cursor.execute(create_blogger_table_sql))
 
             # todo 创建 articleitem 表
             cursor.execute('DROP TABLE IF EXISTS articleitem')
@@ -61,7 +74,7 @@ class ConnectDB:
                            '''
             # 执行sql语句
             print(create_articleitem_table_sql)
-            print('create articleitem success ', cursor.execute(create_articleitem_table_sql))
+            print('create articleitem table success ', cursor.execute(create_articleitem_table_sql))
             # 执行sql语句
             db.commit()
         except IndentationError as e:
