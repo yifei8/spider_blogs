@@ -6,6 +6,8 @@
  Created by yifei on 2018/2/1.
 """
 import re
+import urlparse
+
 from bs4 import BeautifulSoup
 
 
@@ -32,17 +34,22 @@ class ResParser(object):
 
     def _get_data(self, root_url, soup):
         data = []
-        subdata = {}
+
+        slug = self._get_slug(root_url)
         lis = soup.find_all('li', class_="blog-unit")
         for li in lis:
+            subdata = {}
             a = li.find('a')
             subdata['href'] = a['href']
             h3 = li.find('h3', class_="blog-title odd-overhidden bottom-dis-8")
             subdata['title'] = ''.join(h3.text.split())
             p = li.find('p', class_="text bottom-dis-8")
             subdata['des'] = ''.join(p.text.split())
+            subdata['author_slug'] = slug
+            # print subdata['title']
             data.append(subdata)
 
+        print data
         return data
 
     def _get_new_urls(self, root_url, soup):
@@ -57,3 +64,9 @@ class ResParser(object):
                 pass
 
         return new_urls
+
+    def _get_slug(self, url):
+        up = urlparse.urlparse(url)
+        if 'blog.csdn.net' == up.hostname:
+            return up.path.split(r'/')[1]
+        return ''

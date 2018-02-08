@@ -8,6 +8,8 @@
 
 import pymysql
 
+from db import author_dao, article_dao
+
 
 class ConnectDB:
     def __init__(self, host, user, password, dbname, charset='utf8mb4'):
@@ -36,7 +38,7 @@ class ConnectDB:
             create_user_table_sql = '''
                                        CREATE TABLE IF NOT EXISTS `user` (
                                          `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-                                         `name` varchar(50) NOT NULL,
+                                         `name` varchar(100) NOT NULL,
                                          `pwd` varchar(20) NOT NULL,
                                          PRIMARY KEY (`id`)
                                        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -50,8 +52,8 @@ class ConnectDB:
             create_author_table_sql = '''
                            CREATE TABLE IF NOT EXISTS `author` (
                              `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-                             `slug` varchar(40) DEFAULT NULL,
-                             `name` varchar(40) DEFAULT NULL,
+                             `slug` varchar(100) DEFAULT NULL,
+                             `name` varchar(100) DEFAULT NULL,
                              `avatar` tinytext,
                              `url` text,
                              PRIMARY KEY (`id`)
@@ -68,9 +70,8 @@ class ConnectDB:
                              `title` tinytext,
                              `des` text,
                              `href` text NOT NULL,
-                             `author_slug` int(11) DEFAULT NULL,
-                             PRIMARY KEY (`id`),
-                             KEY `author_slug` (`author_slug`)
+                             `author_slug` varchar(100) DEFAULT NULL,
+                             PRIMARY KEY (`id`)
                            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
                            '''
             # 执行sql语句
@@ -87,3 +88,20 @@ class ConnectDB:
             cursor.close()
             # 关闭数据库连接
             db.close()
+
+
+
+host = 'localhost'
+user = 'root'
+password = 'root'
+db = 'pythontest'
+connectdb = ConnectDB(host, user, password, db)
+
+
+def getArticleDao():
+    authorDao = article_dao.ArticleDao(connectdb)
+    return authorDao
+
+def getAuthorDao():
+    authorDao = author_dao.AuthorDao(connectdb)
+    return authorDao

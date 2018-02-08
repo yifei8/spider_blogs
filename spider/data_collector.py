@@ -5,6 +5,7 @@
  Description [数据收集，存储格式化数据]
  Created by yifei on 2018/2/1.
 """
+from db import db_manager
 
 
 class DataCollector(object):
@@ -20,3 +21,6 @@ class DataCollector(object):
     def output_data(self):
         #todo 存储到mysql中
         print(self.datas)
+        authorDao = db_manager.getArticleDao()
+        authorDao.insert_list(self.datas)
+
