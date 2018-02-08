@@ -7,8 +7,8 @@
 """
 
 import init_db
-import blogger_dao
-import articleitem_dao
+import author_dao
+import article_dao
 
 
 if __name__ == "__main__":
@@ -21,20 +21,20 @@ if __name__ == "__main__":
     # todo 创建数据表
     connectdb.create_table()
 
-    bloggerDao = blogger_dao.BloggerDao(connectdb)
-    # todo 插入单条数据到blogger表中
-    # bloggerDao.insert('wangwu5','www.kk.com','cccc.kaishiba.com')
+    authorDao = author_dao.AuthorDao(connectdb)
+    # todo 插入单条数据到author表中
+    # authorDao.insert('wangwu5','www.kk.com','cccc.kaishiba.com')
 
-    # todo 批量插入数据到blogger表中
+    # todo 批量插入数据到author表中
     # params = [('zhangsan', 'ccc.zhansan.com', 'dd.zhangsan.com'),
     #           ('lisi', 'www.lisi.com', 'ccc.lisi.com')]
-    # bloggerDao.insert_list(params)
+    # authorDao.insert_list(params)
 
-    articleitemDao = articleitem_dao.ArticleItemDao(connectdb)
+    articleDao = article_dao.ArticleDao(connectdb)
     # todo 插入单条数据到articleitem表中
-    # articleitemDao.insert('title4', 'cccc4', 'www.ccc.com', 1)
+    # articleDao.insert('title4', 'cccc4', 'www.ccc.com', 1)
 
     # todo 批量插入数据到articleitem表中
     # params = [('title3', 'cccc3', 'www.ccc.com', 5),
     #           ('title2', 'cccc2', 'www.ccc.com', 4)]
-    # articleitemDao.insert_list(params)
+    # articleDao.insert_list(params)

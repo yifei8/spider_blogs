@@ -11,12 +11,12 @@ class DataCollector(object):
     def __init__(self):
         self.datas = []
 
-    def collect_data(self, new_datas):
+    def collect_articles(self, new_datas):
         if new_datas is None or len(new_datas) == 0:
             return
 
         self.datas.extend(new_datas)
 
     def output_data(self):
-        #todo 以json 格式存储到文件
+        #todo 存储到mysql中
         print(self.datas)

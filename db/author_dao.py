@@ -2,28 +2,48 @@
 # -*- coding: UTF-8 -*-
 
 """
- Description [数据库articleitem表 增/删/改/查 操作]
+
+SET NAMES utf8;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+--  Table structure for `article`
+-- ----------------------------
+DROP TABLE IF EXISTS `article`;
+CREATE TABLE `article` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` tinytext,
+  `des` text,
+  `url` text NOT NULL,
+  `author_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `author_id` (`author_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+ Description [数据库author表 增/删/改/查 操作]
  Created by yifei on 2018/2/6.
 """
 
 
-class ArticleItemDao:
+class AuthorDao(object):
     def __init__(self, connectdb):
         self.connected = connectdb
 
-    def insert(self, title, des, url, author_id):
+    def insert(self, name, avatar, url):
         db, cursor = self.connected.getCursor()
         try:
-            sql = "INSERT INTO articleitem(title, des, url, author_id) VALUES ('%s', '%s', '%s', '%d')" % (
-                title, des, url, author_id)
+            sql = "INSERT INTO author(name, avatar, url) VALUES ('%s', '%s', '%s')" % (
+                name, avatar, url)
             # 执行sql语句
             print('insert success ', cursor.execute(sql))
             # 执行sql语句
             db.commit()
-        except IndentationError as e:
+        except:
             # 发生错误时回滚
             db.rollback()
-            print(title, 'insert_one failed', e)
+            print(name, 'insert_one failed')
         finally:
             # 关闭游标
             cursor.close()
@@ -33,7 +53,7 @@ class ArticleItemDao:
     def insert_list(self, params):
         db, cursor = self.connected.getCursor()
         try:
-            sql = "INSERT INTO articleitem(title, des, url, author_id) VALUES (%s, %s, %s, %s)"
+            sql = "INSERT INTO author (name, avatar, url) VALUES (%s, %s, %s)"
             # 执行sql语句
             print('insert list success ', cursor.executemany(sql, params))
             # 执行sql语句

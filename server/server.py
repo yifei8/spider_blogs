@@ -9,15 +9,16 @@ from flask import Flask
 from flask_restful import Api
 
 from server.article_api import ArticleAPI
-from server.blogger_api import BloggerAPI
+from server.author_api import AuthorAPI, AuthorListAPI
 from server.user_api import UserAPI
 
 app = Flask(__name__)
 api = Api(app)
 
-api.add_resource(UserAPI, '/users/<int:id>', endpoint='user')
-api.add_resource(BloggerAPI, '/v1.0/blogger', endpoint='blogger')
-api.add_resource(ArticleAPI, '/v1.0/articles', endpoint='articles')
+api.add_resource(UserAPI, '/users/<int:id>/v1', endpoint='user')
+api.add_resource(AuthorAPI, 'author/v1', endpoint='author')
+api.add_resource(AuthorListAPI, 'author/v1/list', endpoint='author')
+api.add_resource(ArticleAPI, '/articles/v1', endpoint='articles')
 
 
 class Server:

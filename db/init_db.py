@@ -45,36 +45,37 @@ class ConnectDB:
             print(create_user_table_sql)
             print('create user table success ', cursor.execute(create_user_table_sql))
 
-            # todo 创建 blogger 表
-            cursor.execute('DROP TABLE IF EXISTS blogger')
-            create_blogger_table_sql = '''
-                           CREATE TABLE IF NOT EXISTS `blogger` (
+            # todo 创建 author 表
+            cursor.execute('DROP TABLE IF EXISTS author')
+            create_author_table_sql = '''
+                           CREATE TABLE IF NOT EXISTS `author` (
                              `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-                             `name` varchar(20) DEFAULT NULL,
+                             `slug` varchar(40) DEFAULT NULL,
+                             `name` varchar(40) DEFAULT NULL,
                              `avatar` tinytext,
                              `url` text,
                              PRIMARY KEY (`id`)
                            ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
                            '''
-            print(create_blogger_table_sql)
-            print('create articleitem table success ', cursor.execute(create_blogger_table_sql))
+            print(create_author_table_sql)
+            print('create article table success ', cursor.execute(create_author_table_sql))
 
-            # todo 创建 articleitem 表
-            cursor.execute('DROP TABLE IF EXISTS articleitem')
-            create_articleitem_table_sql = '''
-                           CREATE TABLE IF NOT EXISTS `articleitem` (
+            # todo 创建 article 表
+            cursor.execute('DROP TABLE IF EXISTS article')
+            create_article_table_sql = '''
+                           CREATE TABLE IF NOT EXISTS `article` (
                              `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
                              `title` tinytext,
                              `des` text,
-                             `url` text NOT NULL,
-                             `author_id` int(11) DEFAULT NULL,
+                             `href` text NOT NULL,
+                             `author_slug` int(11) DEFAULT NULL,
                              PRIMARY KEY (`id`),
-                             KEY `author_id` (`author_id`)
+                             KEY `author_slug` (`author_slug`)
                            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
                            '''
             # 执行sql语句
-            print(create_articleitem_table_sql)
-            print('create articleitem table success ', cursor.execute(create_articleitem_table_sql))
+            print(create_article_table_sql)
+            print('create article table success ', cursor.execute(create_article_table_sql))
             # 执行sql语句
             db.commit()
         except IndentationError as e:

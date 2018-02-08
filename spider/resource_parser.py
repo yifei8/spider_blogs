@@ -35,13 +35,12 @@ class ResParser(object):
         subdata = {}
         lis = soup.find_all('li', class_="blog-unit")
         for li in lis:
-            subdata['sources_url'] = root_url
             a = li.find('a')
             subdata['href'] = a['href']
             h3 = li.find('h3', class_="blog-title odd-overhidden bottom-dis-8")
-            subdata['title'] = h3.get_text().encode('utf-8')
+            subdata['title'] = ''.join(h3.text.split())
             p = li.find('p', class_="text bottom-dis-8")
-            subdata['overview'] = p.get_text().encode('utf-8')
+            subdata['des'] = ''.join(p.text.split())
             data.append(subdata)
 
         return data

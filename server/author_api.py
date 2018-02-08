@@ -9,7 +9,7 @@
 from flask_restful import Resource
 
 
-class BloggerAPI(Resource):
+class AuthorAPI(Resource):
     def get(self, id):
         pass
 
@@ -17,4 +17,9 @@ class BloggerAPI(Resource):
         pass
 
     def delete(self, id):
+        pass
+
+
+class AuthorListAPI(Resource):
+    def get(self):
         pass

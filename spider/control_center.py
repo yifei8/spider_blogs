@@ -27,7 +27,7 @@ class SpiderMain(object):
             content = self.res_downloader.downloader(new_url)
             new_urls, parsed_data = self.res_parser.parse(new_url, content)
             self.url_manager.add_new_urls(new_urls)
-            self.data_collector.collect_data(parsed_data)
+            self.data_collector.collect_articles(parsed_data)
             count = count + 1
             if count >= 10:
                 break
