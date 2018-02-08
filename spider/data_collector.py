@@ -19,8 +19,7 @@ class DataCollector(object):
         self.datas.extend(new_datas)
 
     def output_data(self):
-        #todo 存储到mysql中
-        print(self.datas)
-        authorDao = db_manager.getArticleDao()
-        authorDao.insert_list(self.datas)
+        #存储到mysql中
+        articleDao = db_manager.getArticleDao()
+        articleDao.insert_list(self.datas)
 

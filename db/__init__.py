@@ -19,7 +19,7 @@ if __name__ == "__main__":
 
     connectdb = db_manager.ConnectDB(host, user, password, db)
     # todo 创建数据表
-    connectdb.create_table()
+    # connectdb.create_table()
 
     authorDao = author_dao.AuthorDao(connectdb)
     # todo 插入单条数据到author表中
@@ -38,3 +38,6 @@ if __name__ == "__main__":
     # params = [('title3', 'cccc3', 'www.ccc.com', 5),
     #           ('title2', 'cccc2', 'www.ccc.com', 4)]
     # articleDao.insert_list(params)
+
+    # todo 查询article 表
+    articleDao.get_list()

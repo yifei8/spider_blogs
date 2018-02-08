@@ -49,7 +49,6 @@ class ResParser(object):
             # print subdata['title']
             data.append(subdata)
 
-        print data
         return data
 
     def _get_new_urls(self, root_url, soup):
